@@ -1,0 +1,51 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+
+{% for i in messages %}
+<div class="">
+  <h3 class="text-{{i.tags}} btn btn-primary disabled text-dark">{{i}}</h3>
+</div>
+{% endfor %}
+
+
+<div class="d-flex flex-wrap px-5 pt-3 align-items-center">
+
+  <div class="col-6">
+    <h1>Welcome to Car WOrld</h1>
+    <p>Welcome to Car WOrld, where your automotive dreams come to life! At [Car Shop Name], we pride ourselves on providing top-notch service and a wide selection of vehicles to suit every need and budget. Our team of experienced professionals is dedicated to helping you find the perfect car that matches your lifestyle and preferences. Whether you're in the market for a sleek sedan, a rugged SUV, or a high-performance sports car, we've got you covered. In addition to our extensive inventory of new and pre-owned vehicles, we also offer a range of automotive services, including maintenance, repairs, and customization. Our state-of-the-art facilities and skilled technicians ensure that your vehicle receives the care and attention it deserves.</p>
+  </div>
+  <div class="col-6">
+<img style="width: 90%;" src="{% static 'car1.jpg' %}"/>
+  </div>
+</div>
+
+<div class="col-2 bg-white p-3 d-flex" >
+  <h5 class="btn btn-primary disabled">All Categories</h5>
+  {% for cat in brand %}
+  <div class="hudai">
+    <a class="btn btn-danger mx-2" href="{% url 'brand_wise_post' cat.slug %}" class="text-decoration-none text-dark" >{{cat.name}}</a>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="col-10 p-3">
+
+  <h4>{{data | length}} results found</h4>
+  <div class="d-flex flex-wrap pt-5">
+    {% for post in data %}
+    <div class="col-sm-3">
+      <div class="card m-2">
+        <div class="card-body">
+          <img src="{{post.image.url}}" class="card-img-top" alt="...">
+          <h5 class="card-title">Model : {{post.model}}</h5>
+          <h5 class="card-title">Price : {{post.price}}$</h5>
+          <h5 class="card-title">Brand : {{post.brand}}</h5>
+          <a class="btn btn-dark" href="{% url 'car_details' post.id %}">View Details</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div> 
+{% endblock %}
